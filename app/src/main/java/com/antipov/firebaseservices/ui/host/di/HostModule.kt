@@ -9,6 +9,8 @@ import com.antipov.firebaseservices.ui.onboarding.flow.OnboardingFlowFragment
 import com.antipov.firebaseservices.ui.onboarding.flow.di.OnboardingFlowModule
 import com.antipov.firebaseservices.ui.host.HostActivity
 import com.antipov.firebaseservices.ui.host.HostPresenter
+import com.antipov.firebaseservices.ui.main.MainFlowFragment
+import com.antipov.firebaseservices.ui.main.di.MainFlowModule
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -19,7 +21,11 @@ abstract class HostModule {
 
     @PerFragment
     @ContributesAndroidInjector(modules = [OnboardingFlowModule::class])
-    abstract fun firstFragment(): OnboardingFlowFragment
+    abstract fun onboarding(): OnboardingFlowFragment
+
+    @PerFragment
+    @ContributesAndroidInjector(modules = [MainFlowModule::class])
+    abstract fun main(): MainFlowFragment
 
     @Module
     companion object {

@@ -1,9 +1,9 @@
 package com.antipov.firebaseservices.ui.onboarding.flow
 
-import android.os.Bundle
 import com.antipov.firebaseservices.R
 import com.antipov.firebaseservices.navigation.AppNavigator
 import com.antipov.firebaseservices.ui.base.BaseFragment
+import com.antipov.firebaseservices.ui.host.di.HostNavigator
 import com.antipov.firebaseservices.ui.onboarding.flow.di.OnboardingFlowNavigator
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -23,6 +23,10 @@ class OnboardingFlowFragment : BaseFragment(),
     @field:OnboardingFlowNavigator
     lateinit var navigator: AppNavigator
 
+    @Inject
+    @field:HostNavigator
+    lateinit var hostNavigator: AppNavigator
+
     private val currentFragment: BaseFragment?
         get() = childFragmentManager.findFragmentById(R.id.onboardingFlowContainer) as? BaseFragment
 
@@ -30,12 +34,14 @@ class OnboardingFlowFragment : BaseFragment(),
 
     override fun getActivityNavigator() = navigator
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        view?.post { if (childFragmentManager.findFragmentById(R.id.onboardingFlowContainer) == null) presenter.openAuth() }
+    override fun onLoggedIn() {
+        navigatorHolder.setNavigator(hostNavigator)
+        view?.post { presenter.openMain() }
     }
 
-    override fun onBackPressed() {
-        currentFragment?.onBackPressed()
+    override fun onNotLoggedIn() {
+        view?.post { presenter.openAuth() }
     }
+
+    override fun onBackPressed() = currentFragment?.onBackPressed() ?: Unit
 }

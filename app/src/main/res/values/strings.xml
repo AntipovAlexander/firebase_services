@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SingleActivity</string>
+    <string name="app_name">Firebase</string>
     <string name="stock_date">Stock date: %s</string>
     <string name="open">Open: %s</string>
     <string name="high">High: %s</string>

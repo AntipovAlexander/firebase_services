@@ -18,16 +18,21 @@ class OnboardingFlowPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         launch {
-            val result = isUserLoggedUseCase.invoke(null)
-            when (result) {
+            when (val result = isUserLoggedUseCase.invoke(null)) {
                 is Either.Right -> runOnUi {
-//                    if (result.b)
-
+                    if (result.b)
+                        viewState.onLoggedIn()
+                    else
+                        viewState.onNotLoggedIn()
                 }
-                is Either.Left -> runOnUi {}
+                is Either.Left -> runOnUi {
+                    viewState.showMessage(result.a.message ?: "Auth check error")
+                }
             }
         }
     }
 
     fun openAuth() = router.navigateTo(Screens.Auth)
+
+    fun openMain() = router.navigateTo(Screens.Main)
 }
