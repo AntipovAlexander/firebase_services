@@ -2,6 +2,7 @@ package com.antipov.firebaseservices.navigation
 
 import androidx.fragment.app.Fragment
 import com.antipov.firebaseservices.ui.onboarding.auth.AuthFragment
+import com.antipov.firebaseservices.ui.onboarding.register.RegisterFragment
 import com.antipov.firebaseservices.ui.onboarding.flow.OnboardingFlowFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
@@ -18,10 +19,10 @@ class Screens {
     object Auth : SupportAppScreen() {
         override fun getFragment(): Fragment = AuthFragment()
     }
-//
-//    object FirstNested : SupportAppScreen() {
-//        override fun getFragment(): FirstNestedFragment = FirstNestedFragment()
-//    }
+
+    object Register : SupportAppScreen() {
+        override fun getFragment(): Fragment = RegisterFragment()
+    }
 //
 //    object SecondNested : SupportAppScreen() {
 //        override fun getFragment(): SecondNestedFragment = SecondNestedFragment()

@@ -9,7 +9,9 @@ import com.antipov.firebaseservices.navigation.AppNavigator
 import com.antipov.firebaseservices.ui.onboarding.flow.OnboardingFlowFragment
 import com.antipov.firebaseservices.ui.onboarding.flow.OnboardingFlowPresenter
 import com.antipov.firebaseservices.ui.onboarding.auth.AuthFragment
+import com.antipov.firebaseservices.ui.onboarding.register.RegisterFragment
 import com.antipov.firebaseservices.ui.onboarding.auth.di.AuthModule
+import com.antipov.firebaseservices.ui.onboarding.register.di.RegisterModule
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -20,7 +22,11 @@ abstract class OnboardingFlowModule {
 
     @PerChildFragment
     @ContributesAndroidInjector(modules = [AuthModule::class])
-    abstract fun nestedInjectorInjector(): AuthFragment
+    abstract fun authInjectorInjector(): AuthFragment
+
+    @PerChildFragment
+    @ContributesAndroidInjector(modules = [RegisterModule::class])
+    abstract fun registerInjectorInjector(): RegisterFragment
 
     @Module
     companion object {
