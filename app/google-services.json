@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "79164427919",
+    "firebase_url": "https://fir-services-b8bfb.firebaseio.com",
+    "project_id": "fir-services-b8bfb",
+    "storage_bucket": "fir-services-b8bfb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79164427919:android:7b263e345ece787c19eafa",
+        "android_client_info": {
+          "package_name": "com.antipov.firebaseservices"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79164427919-6uk15m7vaudrq1fqok90mcpo0ui6rs4r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1UcHQ1CLGuopxlqH_haSu8RinASl6CsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79164427919-6uk15m7vaudrq1fqok90mcpo0ui6rs4r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

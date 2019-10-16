@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.antipov.singleactivity"
+        applicationId "com.antipov.firebaseservices"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -65,5 +65,6 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.16'
     kapt 'com.google.dagger:dagger-android-processor:2.16'
     kapt "com.github.moxy-community:moxy-compiler:$moxy_version"
-
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,5 +1,6 @@
 package com.antipov.firebaseservices.di
 
+import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -7,10 +8,8 @@ import javax.inject.Singleton
 @Module
 class AppDependencies {
 
-//    @Provides
-//    @Singleton
-//    fun provideSingleton() = SingletonDependency().apply {
-//        value = "this is singleton dependency"
-//    }
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
 
 }

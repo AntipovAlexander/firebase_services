@@ -1,4 +1,4 @@
-package com.antipov.firebaseservices.domain
+package com.antipov.firebaseservices.domain.base
 
 import com.antipov.firebaseservices.Either
 

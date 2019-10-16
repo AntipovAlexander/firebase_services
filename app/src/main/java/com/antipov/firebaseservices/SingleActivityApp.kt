@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import com.antipov.firebaseservices.BuildConfig.DEBUG
 import com.antipov.firebaseservices.di.DaggerApplicationComponent
+import com.google.firebase.FirebaseApp
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import timber.log.Timber

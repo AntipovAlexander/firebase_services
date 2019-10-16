@@ -3,15 +3,18 @@ package com.antipov.firebaseservices.ui.onboarding.flow.di
 import androidx.appcompat.app.AppCompatActivity
 import com.antipov.firebaseservices.R
 import com.antipov.firebaseservices.data.repository.ReactiveRepository
+import com.antipov.firebaseservices.data.repository.impl.UserRepositoryImpl
 import com.antipov.firebaseservices.di.scopes.PerChildFragment
 import com.antipov.firebaseservices.di.scopes.PerFragment
+import com.antipov.firebaseservices.domain.user.IsUserLogged
 import com.antipov.firebaseservices.navigation.AppNavigator
+import com.antipov.firebaseservices.ui.onboarding.auth.AuthFragment
+import com.antipov.firebaseservices.ui.onboarding.auth.di.AuthModule
 import com.antipov.firebaseservices.ui.onboarding.flow.OnboardingFlowFragment
 import com.antipov.firebaseservices.ui.onboarding.flow.OnboardingFlowPresenter
-import com.antipov.firebaseservices.ui.onboarding.auth.AuthFragment
 import com.antipov.firebaseservices.ui.onboarding.register.RegisterFragment
-import com.antipov.firebaseservices.ui.onboarding.auth.di.AuthModule
 import com.antipov.firebaseservices.ui.onboarding.register.di.RegisterModule
+import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -45,15 +48,16 @@ abstract class OnboardingFlowModule {
         @Provides
         @PerFragment
         @JvmStatic
-        fun providePresenter(reactiveRepository: ReactiveRepository, router: Router) =
+        fun providePresenter(isUserLoggedUseCase: IsUserLogged, router: Router) =
             OnboardingFlowPresenter(
-                reactiveRepository,
+                isUserLoggedUseCase,
                 router
             )
 
-//        @Provides
-//        @PerFragment
-//        @JvmStatic
-//        fun provideHostDependency() = FirstFlowDependency()
+        @Provides
+        @PerFragment
+        @JvmStatic
+        fun provideHostDependency(auth: FirebaseAuth): IsUserLogged =
+            IsUserLogged(UserRepositoryImpl(auth))
     }
 }
