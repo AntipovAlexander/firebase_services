@@ -2,7 +2,6 @@ package com.antipov.firebaseservices.ui.onboarding.flow.di
 
 import androidx.appcompat.app.AppCompatActivity
 import com.antipov.firebaseservices.R
-import com.antipov.firebaseservices.data.repository.ReactiveRepository
 import com.antipov.firebaseservices.data.repository.impl.UserRepositoryImpl
 import com.antipov.firebaseservices.di.scopes.PerChildFragment
 import com.antipov.firebaseservices.di.scopes.PerFragment
@@ -48,16 +47,6 @@ abstract class OnboardingFlowModule {
         @Provides
         @PerFragment
         @JvmStatic
-        fun providePresenter(isUserLoggedUseCase: IsUserLogged, router: Router) =
-            OnboardingFlowPresenter(
-                isUserLoggedUseCase,
-                router
-            )
-
-        @Provides
-        @PerFragment
-        @JvmStatic
-        fun provideHostDependency(auth: FirebaseAuth): IsUserLogged =
-            IsUserLogged(UserRepositoryImpl(auth))
+        fun providePresenter(router: Router) = OnboardingFlowPresenter(router)
     }
 }

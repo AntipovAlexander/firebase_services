@@ -6,4 +6,6 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndStrategy::class)
 interface HostView : BaseView {
+    fun onLoggedIn()
+    fun onNotLoggedIn()
 }

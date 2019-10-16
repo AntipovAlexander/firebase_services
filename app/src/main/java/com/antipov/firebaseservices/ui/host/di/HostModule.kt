@@ -1,16 +1,18 @@
 package com.antipov.firebaseservices.ui.host.di
 
 import com.antipov.firebaseservices.R
-import com.antipov.firebaseservices.data.repository.ReactiveRepository
+import com.antipov.firebaseservices.data.repository.impl.UserRepositoryImpl
 import com.antipov.firebaseservices.di.scopes.PerActivity
 import com.antipov.firebaseservices.di.scopes.PerFragment
+import com.antipov.firebaseservices.domain.user.IsUserLogged
 import com.antipov.firebaseservices.navigation.AppNavigator
-import com.antipov.firebaseservices.ui.onboarding.flow.OnboardingFlowFragment
-import com.antipov.firebaseservices.ui.onboarding.flow.di.OnboardingFlowModule
 import com.antipov.firebaseservices.ui.host.HostActivity
 import com.antipov.firebaseservices.ui.host.HostPresenter
 import com.antipov.firebaseservices.ui.main.MainFlowFragment
 import com.antipov.firebaseservices.ui.main.di.MainFlowModule
+import com.antipov.firebaseservices.ui.onboarding.flow.OnboardingFlowFragment
+import com.antipov.firebaseservices.ui.onboarding.flow.di.OnboardingFlowModule
+import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -32,8 +34,8 @@ abstract class HostModule {
         @Provides
         @PerActivity
         @JvmStatic
-        fun providePresenter(reactiveRepository: ReactiveRepository, router: Router) =
-            HostPresenter(reactiveRepository, router)
+        fun providePresenter(isUserLogged: IsUserLogged, router: Router) =
+            HostPresenter(isUserLogged, router)
 
         @Provides
         @PerActivity
@@ -41,5 +43,11 @@ abstract class HostModule {
         @HostNavigator
         fun provideMainActivityNavigator(hostActivity: HostActivity) =
             AppNavigator(hostActivity, R.id.hostContainer)
+
+        @Provides
+        @PerActivity
+        @JvmStatic
+        fun provideHostDependency(auth: FirebaseAuth): IsUserLogged =
+            IsUserLogged(UserRepositoryImpl(auth))
     }
 }

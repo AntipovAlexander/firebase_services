@@ -1,27 +1,33 @@
 package com.antipov.firebaseservices.ui.host
 
-import com.antipov.firebaseservices.data.repository.ReactiveRepository
+import com.antipov.firebaseservices.domain.user.IsUserLogged
 import com.antipov.firebaseservices.navigation.Screens
 import com.antipov.firebaseservices.ui.base.BasePresenter
-import kotlinx.coroutines.ObsoleteCoroutinesApi
-import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import ru.terrakok.cicerone.Router
 
 @InjectViewState
 class HostPresenter(
-    private var reactiveRepository: ReactiveRepository,
+    private val isUserLoggedUseCase: IsUserLogged,
     private val router: Router
 ) : BasePresenter<HostView>() {
 
-    @ObsoleteCoroutinesApi
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         launch {
-            reactiveRepository.getChannel().consumeEach {
-            }
+            isUserLoggedUseCase.invoke(null).fold({ isAuthed ->
+                if (isAuthed)
+                    viewState.onLoggedIn()
+                else
+                    viewState.onNotLoggedIn()
+            }, {
+                viewState.showMessage(it.message ?: "Auth check error")
+            })
         }
-        router.newRootScreen(Screens.Onboarding)
     }
+
+    fun openOnboarding() = router.navigateTo(Screens.Onboarding)
+
+    fun openMain() = router.navigateTo(Screens.Main)
 }

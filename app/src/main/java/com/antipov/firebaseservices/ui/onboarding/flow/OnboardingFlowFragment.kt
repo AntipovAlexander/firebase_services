@@ -1,5 +1,7 @@
 package com.antipov.firebaseservices.ui.onboarding.flow
 
+import android.os.Bundle
+import android.view.View
 import com.antipov.firebaseservices.R
 import com.antipov.firebaseservices.navigation.AppNavigator
 import com.antipov.firebaseservices.ui.base.BaseFragment
@@ -30,18 +32,14 @@ class OnboardingFlowFragment : BaseFragment(),
     private val currentFragment: BaseFragment?
         get() = childFragmentManager.findFragmentById(R.id.onboardingFlowContainer) as? BaseFragment
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        view?.post { if (childFragmentManager.findFragmentById(R.id.hostContainer) == null) presenter.openAuth() }
+    }
+
     override val layoutRes: Int = R.layout.onboarding_flow_fragment
 
     override fun getActivityNavigator() = navigator
-
-    override fun onLoggedIn() {
-        navigatorHolder.setNavigator(hostNavigator)
-        view?.post { presenter.openMain() }
-    }
-
-    override fun onNotLoggedIn() {
-        view?.post { presenter.openAuth() }
-    }
 
     override fun onBackPressed() = currentFragment?.onBackPressed() ?: Unit
 }
