@@ -5,9 +5,9 @@ import com.antipov.firebaseservices.data.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 
 class UserRepositoryImpl(private val auth: FirebaseAuth) : UserRepository {
-    override fun getCurrentUser(): User? {
-        return auth.currentUser?.let {
-            User(it.uid, it.displayName, it.email)
-        }
-    }
+    override fun authUser(login: String, password: String) =
+        auth.signInWithEmailAndPassword(login, password)
+
+    override fun getCurrentUser() =
+        auth.currentUser?.let { User(it.uid, it.displayName, it.email) }
 }

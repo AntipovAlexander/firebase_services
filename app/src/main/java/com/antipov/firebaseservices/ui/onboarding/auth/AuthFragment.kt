@@ -1,7 +1,5 @@
 package com.antipov.firebaseservices.ui.onboarding.auth
 
-import android.os.Bundle
-import android.view.View
 import com.antipov.firebaseservices.R
 import com.antipov.firebaseservices.navigation.AppNavigator
 import com.antipov.firebaseservices.ui.base.BaseFragment
@@ -36,6 +34,12 @@ class AuthFragment : BaseFragment(), AuthView {
 
     override fun initListeners() {
         fragmentRegisterGoToRegister.onClick { presenter.openRegister() }
+        fragmentRegisterAuthBtn.onClick {
+            presenter.authUser(
+                fragmentRegisterLogin.text.toString(),
+                fragmentRegisterPassword.text.toString()
+            )
+        }
     }
 
     override fun onBackPressed() {

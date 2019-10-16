@@ -9,8 +9,7 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class MainFlowFragment : BaseFragment(),
-    MainFlowView {
+class MainFlowFragment : BaseFragment(), MainFlowView {
 
     @Inject
     @InjectPresenter
