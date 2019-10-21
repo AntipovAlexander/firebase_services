@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:padding="16dp"
+    tools:ignore="HardcodedText">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/mainScreenCaption"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="I AM Main screen" />
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/mainScreenAvatar"
+        android:gravity="left"
+        android:text="Hello, "
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/mainScreenAvatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/mainScreenCaption"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/mainScreenUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainScreenCaption"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/mainScreenAvatar"
+        android:text="Main Screen"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/mainScreenEmailNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainScreenUsername"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/mainScreenAvatar"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Your email is not verified. Click to verify"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+
 </RelativeLayout>

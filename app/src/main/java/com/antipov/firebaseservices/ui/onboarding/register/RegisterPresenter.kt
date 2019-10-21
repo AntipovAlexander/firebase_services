@@ -17,7 +17,15 @@ class RegisterPresenter(
     fun register(email: String, password: String) =
         launch {
             runOnUi { viewState.showProgress() }
-            val result = registerUseCase.invoke(RegisterUseCase.Params(email, password))
+            val result = registerUseCase.invoke(
+                RegisterUseCase.Params(
+                    email,
+                    password,
+                    "Antipov",
+                    "Alexander",
+                    "https://randomuser.me/api/portraits/lego/5.jpg"
+                )
+            )
             result.fold({
                 runOnUi {
                     viewState.onRegisterSuccessful()
