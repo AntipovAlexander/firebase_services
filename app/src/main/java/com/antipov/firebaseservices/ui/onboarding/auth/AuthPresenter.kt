@@ -3,6 +3,7 @@ package com.antipov.firebaseservices.ui.onboarding.auth
 import com.antipov.firebaseservices.domain.user.AuthUserUseCase
 import com.antipov.firebaseservices.navigation.Screens
 import com.antipov.firebaseservices.ui.base.BasePresenter
+import com.antipov.firebaseservices.utils.extensions.runOnUi
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import ru.terrakok.cicerone.Router
@@ -16,8 +17,17 @@ class AuthPresenter(
 
     fun authUser(login: String, password: String) {
         launch {
+            runOnUi { viewState.showProgress() }
             val result = authUserUseCase.invoke(AuthUserUseCase.Params(login, password))
-            result.toString()
+            result.fold({
+                runOnUi {
+                    viewState.onAuthSuccess()
+                    router.replaceScreen(Screens.Main)
+                }
+            }, {
+                viewState.showMessage(it.message ?: "Error occurred")
+            })
+            runOnUi { viewState.hideProgress() }
         }
     }
 
