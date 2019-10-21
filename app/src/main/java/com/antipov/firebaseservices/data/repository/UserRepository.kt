@@ -7,4 +7,5 @@ import com.google.firebase.auth.AuthResult
 interface UserRepository {
     fun getCurrentUser() : User?
     fun authUser(login: String, password: String): Task<AuthResult>
+    fun registerUser(login: String, password: String): Task<AuthResult>
 }

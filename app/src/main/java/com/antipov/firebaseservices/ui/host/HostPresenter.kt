@@ -3,6 +3,7 @@ package com.antipov.firebaseservices.ui.host
 import com.antipov.firebaseservices.domain.user.IsUserLogged
 import com.antipov.firebaseservices.navigation.Screens
 import com.antipov.firebaseservices.ui.base.BasePresenter
+import com.antipov.firebaseservices.utils.extensions.runOnUi
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import ru.terrakok.cicerone.Router
@@ -17,10 +18,12 @@ class HostPresenter(
         super.onFirstViewAttach()
         launch {
             isUserLoggedUseCase.invoke(null).fold({ isAuthed ->
-                if (isAuthed)
-                    viewState.onLoggedIn()
-                else
-                    viewState.onNotLoggedIn()
+                runOnUi {
+                    if (isAuthed)
+                        viewState.onLoggedIn()
+                    else
+                        viewState.onNotLoggedIn()
+                }
             }, {
                 viewState.showMessage(it.message ?: "Auth check error")
             })
