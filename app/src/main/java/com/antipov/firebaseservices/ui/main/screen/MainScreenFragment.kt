@@ -1,8 +1,11 @@
 package com.antipov.firebaseservices.ui.main.screen
 
+import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.antipov.firebaseservices.R
+import com.antipov.firebaseservices.data.model.Note
 import com.antipov.firebaseservices.data.model.User
 import com.antipov.firebaseservices.navigation.AppNavigator
 import com.antipov.firebaseservices.ui.base.BaseFragment
@@ -10,6 +13,8 @@ import com.antipov.firebaseservices.ui.host.di.HostNavigator
 import com.antipov.firebaseservices.ui.main.flow.di.MainFlowNavigator
 import com.antipov.firebaseservices.utils.extensions.showSnackbar
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.main_screen_fragment.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -46,6 +51,33 @@ class MainScreenFragment : BaseFragment(), MainScreenView {
         Glide.with(this).load(user.avatar).into(mainScreenAvatar)
         mainScreenEmailNotification.isVisible = !user.isEmailVerified
         mainScreenEmailNotification.setOnClickListener { presenter.runEmailValidation() }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val auth = FirebaseAuth.getInstance()
+
+//        db
+//            .collection("notes")
+//            .whereEqualTo("uid", auth.currentUser!!.uid)
+//            .get()
+//            .addOnSuccessListener { documents ->
+//                for (document in documents) {
+//                    Timber.d("${document.id} => ${document.data}")
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Timber.e(exception)
+//            }
+
+        // todo : remove hardcode
+        val note = Note(
+            auth.uid ?: "",
+            "Note from use case",
+            "bla bla bla Note from use case",
+            System.currentTimeMillis()
+        )
+        presenter.createNote(note)
     }
 
     override fun onValidationSendSuccess() {
