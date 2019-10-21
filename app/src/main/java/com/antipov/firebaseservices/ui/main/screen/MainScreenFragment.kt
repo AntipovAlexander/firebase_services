@@ -1,6 +1,5 @@
 package com.antipov.firebaseservices.ui.main.screen
 
-import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.antipov.firebaseservices.R
@@ -9,6 +8,7 @@ import com.antipov.firebaseservices.navigation.AppNavigator
 import com.antipov.firebaseservices.ui.base.BaseFragment
 import com.antipov.firebaseservices.ui.host.di.HostNavigator
 import com.antipov.firebaseservices.ui.main.flow.di.MainFlowNavigator
+import com.antipov.firebaseservices.utils.extensions.showSnackbar
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.main_screen_fragment.*
 import moxy.presenter.InjectPresenter
@@ -44,21 +44,24 @@ class MainScreenFragment : BaseFragment(), MainScreenView {
     override fun showUser(user: User) {
         mainScreenUsername.text = user.displayName
         Glide.with(this).load(user.avatar).into(mainScreenAvatar)
-        if (!user.isEmailVerified) {
-            mainScreenEmailNotification.isVisible = true
-            mainScreenEmailNotification.setOnClickListener {
-                presenter.runEmailValidation()
-                //                user.sendEmailVerification().addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//                        Toast.makeText(
-//                            context,
-//                            "Check your inbox",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                }
-            }
-        }
+        mainScreenEmailNotification.isVisible = !user.isEmailVerified
+        mainScreenEmailNotification.setOnClickListener { presenter.runEmailValidation() }
+    }
+
+    override fun onValidationSendSuccess() {
+        Toast.makeText(context, "Check your inbox", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showMessage(message: String) {
+        showSnackbar(message)
+    }
+
+    override fun showProgress() {
+        progress.isVisible = true
+    }
+
+    override fun hideProgress() {
+        progress.isVisible = false
     }
 
     override fun onBackPressed() {

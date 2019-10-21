@@ -8,4 +8,5 @@ import moxy.viewstate.strategy.StateStrategyType
 @StateStrategyType(OneExecutionStateStrategy::class)
 interface MainScreenView : BaseView {
     fun showUser(user: User)
+    fun onValidationSendSuccess()
 }

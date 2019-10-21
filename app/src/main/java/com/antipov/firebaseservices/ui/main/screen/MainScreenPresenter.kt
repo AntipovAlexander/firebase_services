@@ -1,6 +1,7 @@
 package com.antipov.firebaseservices.ui.main.screen
 
 import com.antipov.firebaseservices.domain.user.GetUserData
+import com.antipov.firebaseservices.domain.user.ValidateEmailUseCase
 import com.antipov.firebaseservices.ui.base.BasePresenter
 import com.antipov.firebaseservices.utils.extensions.runOnUi
 import kotlinx.coroutines.launch
@@ -9,9 +10,11 @@ import ru.terrakok.cicerone.Router
 
 @InjectViewState
 class MainScreenPresenter(
+    private val validateEmailUseCase: ValidateEmailUseCase,
     private val getUserDataUseCase: GetUserData,
     private val router: Router
 ) : BasePresenter<MainScreenView>() {
+
     fun onBackPressed() = router.exit()
 
     fun requestUserInfo() = launch {
@@ -22,8 +25,14 @@ class MainScreenPresenter(
         })
     }
 
-    fun runEmailValidation() {
-
+    fun runEmailValidation() = launch {
+        runOnUi { viewState.showProgress() }
+        validateEmailUseCase.invoke(null).fold({
+            runOnUi { viewState.onValidationSendSuccess() }
+        }, {
+            viewState.showMessage(it.message ?: "error during email validation")
+        })
+        runOnUi { viewState.hideProgress() }
     }
 
 }

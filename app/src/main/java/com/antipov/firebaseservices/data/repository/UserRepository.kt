@@ -10,4 +10,5 @@ interface UserRepository {
     fun authUser(login: String, password: String): Task<AuthResult>
     fun registerUser(login: String, password: String): Task<AuthResult>
     fun refreshUserData(): Task<Void>
+    fun validateEmail(): Task<Void>
 }
