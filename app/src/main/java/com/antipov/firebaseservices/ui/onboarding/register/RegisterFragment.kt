@@ -64,4 +64,6 @@ class RegisterFragment : BaseFragment(), RegisterView {
     override fun showMessage(message: String) {
         showSnackbar(message)
     }
+
+    override fun onRegisterSuccessful() = navigatorHolder.setNavigator(hostNavigator)
 }

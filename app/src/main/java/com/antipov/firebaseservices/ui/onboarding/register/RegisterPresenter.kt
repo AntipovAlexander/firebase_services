@@ -19,7 +19,10 @@ class RegisterPresenter(
             runOnUi { viewState.showProgress() }
             val result = registerUseCase.invoke(RegisterUseCase.Params(email, password))
             result.fold({
-                runOnUi { router.replaceScreen(Screens.Main) }
+                runOnUi {
+                    viewState.onRegisterSuccessful()
+                    router.replaceScreen(Screens.Main)
+                }
             }, {
                 viewState.showMessage(it.message ?: "Register error, try again")
             })
