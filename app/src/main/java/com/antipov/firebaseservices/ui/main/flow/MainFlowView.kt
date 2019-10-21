@@ -1,4 +1,4 @@
-package com.antipov.firebaseservices.ui.main
+package com.antipov.firebaseservices.ui.main.flow
 
 import com.antipov.firebaseservices.ui.base.BaseView
 

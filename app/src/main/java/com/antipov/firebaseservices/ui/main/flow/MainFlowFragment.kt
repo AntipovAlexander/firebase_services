@@ -1,10 +1,10 @@
-package com.antipov.firebaseservices.ui.main
+package com.antipov.firebaseservices.ui.main.flow
 
 import android.os.Bundle
 import com.antipov.firebaseservices.R
 import com.antipov.firebaseservices.navigation.AppNavigator
 import com.antipov.firebaseservices.ui.base.BaseFragment
-import com.antipov.firebaseservices.ui.main.di.MainFlowNavigator
+import com.antipov.firebaseservices.ui.main.flow.di.MainFlowNavigator
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
@@ -32,12 +32,9 @@ class MainFlowFragment : BaseFragment(), MainFlowView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         view?.post {
-            if (childFragmentManager.findFragmentById(R.id.mainFlowContainer) == null) { // todo
-            }
+            if (childFragmentManager.findFragmentById(R.id.mainFlowContainer) == null) presenter.openMainScreen()
         }
     }
 
-    override fun onBackPressed() {
-        currentFragment?.onBackPressed()
-    }
+    override fun onBackPressed() = currentFragment?.onBackPressed() ?: Unit
 }

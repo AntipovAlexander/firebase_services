@@ -21,7 +21,7 @@ class RegisterPresenter(
             result.fold({
                 runOnUi {
                     viewState.onRegisterSuccessful()
-                    router.replaceScreen(Screens.Main)
+                    router.replaceScreen(Screens.MainFlow)
                 }
             }, {
                 viewState.showMessage(it.message ?: "Register error, try again")

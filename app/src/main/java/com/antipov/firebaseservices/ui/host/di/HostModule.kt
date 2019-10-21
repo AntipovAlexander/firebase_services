@@ -8,8 +8,8 @@ import com.antipov.firebaseservices.domain.user.IsUserLogged
 import com.antipov.firebaseservices.navigation.AppNavigator
 import com.antipov.firebaseservices.ui.host.HostActivity
 import com.antipov.firebaseservices.ui.host.HostPresenter
-import com.antipov.firebaseservices.ui.main.MainFlowFragment
-import com.antipov.firebaseservices.ui.main.di.MainFlowModule
+import com.antipov.firebaseservices.ui.main.flow.MainFlowFragment
+import com.antipov.firebaseservices.ui.main.flow.di.MainFlowModule
 import com.antipov.firebaseservices.ui.onboarding.flow.OnboardingFlowFragment
 import com.antipov.firebaseservices.ui.onboarding.flow.di.OnboardingFlowModule
 import com.google.firebase.auth.FirebaseAuth

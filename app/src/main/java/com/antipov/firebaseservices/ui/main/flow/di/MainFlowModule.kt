@@ -1,17 +1,25 @@
-package com.antipov.firebaseservices.ui.main.di
+package com.antipov.firebaseservices.ui.main.flow.di
 
 import androidx.appcompat.app.AppCompatActivity
 import com.antipov.firebaseservices.R
+import com.antipov.firebaseservices.di.scopes.PerChildFragment
 import com.antipov.firebaseservices.di.scopes.PerFragment
 import com.antipov.firebaseservices.navigation.AppNavigator
-import com.antipov.firebaseservices.ui.main.MainFlowFragment
-import com.antipov.firebaseservices.ui.main.MainFlowPresenter
+import com.antipov.firebaseservices.ui.main.flow.MainFlowFragment
+import com.antipov.firebaseservices.ui.main.flow.MainFlowPresenter
+import com.antipov.firebaseservices.ui.main.screen.MainScreenFragment
+import com.antipov.firebaseservices.ui.main.screen.di.MainScreenModule
 import dagger.Module
 import dagger.Provides
+import dagger.android.ContributesAndroidInjector
 import ru.terrakok.cicerone.Router
 
 @Module
 abstract class MainFlowModule {
+
+    @PerChildFragment
+    @ContributesAndroidInjector(modules = [MainScreenModule::class])
+    abstract fun mainScreenInjectorInjector(): MainScreenFragment
 
     @Module
     companion object {
@@ -30,6 +38,7 @@ abstract class MainFlowModule {
         @Provides
         @PerFragment
         @JvmStatic
-        fun providePresenter(router: Router) = MainFlowPresenter(router)
+        fun providePresenter(router: Router) =
+            MainFlowPresenter(router)
     }
 }

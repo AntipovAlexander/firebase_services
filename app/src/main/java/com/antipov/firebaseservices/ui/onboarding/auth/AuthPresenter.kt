@@ -22,7 +22,7 @@ class AuthPresenter(
             result.fold({
                 runOnUi {
                     viewState.onAuthSuccess()
-                    router.replaceScreen(Screens.Main)
+                    router.replaceScreen(Screens.MainFlow)
                 }
             }, {
                 viewState.showMessage(it.message ?: "Error occurred")

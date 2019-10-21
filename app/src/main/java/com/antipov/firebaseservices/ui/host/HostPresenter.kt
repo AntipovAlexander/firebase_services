@@ -32,5 +32,5 @@ class HostPresenter(
 
     fun openOnboarding() = router.navigateTo(Screens.Onboarding)
 
-    fun openMain() = router.navigateTo(Screens.Main)
+    fun openMain() = router.navigateTo(Screens.MainFlow)
 }

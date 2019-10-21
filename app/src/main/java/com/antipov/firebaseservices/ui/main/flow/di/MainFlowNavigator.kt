@@ -1,4 +1,4 @@
-package com.antipov.firebaseservices.ui.main.di
+package com.antipov.firebaseservices.ui.main.flow.di
 
 import javax.inject.Qualifier
 

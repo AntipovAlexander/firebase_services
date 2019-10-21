@@ -1,10 +1,11 @@
 package com.antipov.firebaseservices.navigation
 
 import androidx.fragment.app.Fragment
-import com.antipov.firebaseservices.ui.main.MainFlowFragment
+import com.antipov.firebaseservices.ui.main.flow.MainFlowFragment
+import com.antipov.firebaseservices.ui.main.screen.MainScreenFragment
 import com.antipov.firebaseservices.ui.onboarding.auth.AuthFragment
-import com.antipov.firebaseservices.ui.onboarding.register.RegisterFragment
 import com.antipov.firebaseservices.ui.onboarding.flow.OnboardingFlowFragment
+import com.antipov.firebaseservices.ui.onboarding.register.RegisterFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 /**
@@ -25,12 +26,13 @@ class Screens {
         override fun getFragment(): Fragment = RegisterFragment()
     }
 
-    object Main : SupportAppScreen() {
-        override fun getFragment(): MainFlowFragment = MainFlowFragment()
+    object MainFlow : SupportAppScreen() {
+        override fun getFragment(): MainFlowFragment =
+            MainFlowFragment()
     }
-//
-//    object ThirdNested : SupportAppScreen() {
-//        override fun getFragment(): ThirdNestedFragment = ThirdNestedFragment()
-//    }
+
+    object MainScreen : SupportAppScreen() {
+        override fun getFragment() = MainScreenFragment()
+    }
 
 }

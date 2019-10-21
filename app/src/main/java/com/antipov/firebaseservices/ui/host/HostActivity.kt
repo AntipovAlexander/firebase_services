@@ -28,4 +28,11 @@ class HostActivity : BaseActivity(), HostView {
     override fun onLoggedIn() = presenter.openMain()
 
     override fun onNotLoggedIn() = presenter.openOnboarding()
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1)
+            finish()
+        else
+            super.onBackPressed()
+    }
 }
