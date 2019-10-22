@@ -2,6 +2,7 @@ package com.antipov.firebaseservices.ui.main.screen
 
 import com.antipov.firebaseservices.data.model.Note
 import com.antipov.firebaseservices.domain.notes.CreateNoteUseCase
+import com.antipov.firebaseservices.domain.notes.GetNotesUseCase
 import com.antipov.firebaseservices.domain.user.GetUserData
 import com.antipov.firebaseservices.domain.user.ValidateEmailUseCase
 import com.antipov.firebaseservices.ui.base.BasePresenter
@@ -12,6 +13,7 @@ import ru.terrakok.cicerone.Router
 
 @InjectViewState
 class MainScreenPresenter(
+    private val getNotesUseCase: GetNotesUseCase,
     private val createNoteUseCase: CreateNoteUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val getUserDataUseCase: GetUserData,
@@ -40,6 +42,14 @@ class MainScreenPresenter(
 
     fun createNote(note: Note) = launch {
         createNoteUseCase.invoke(note).fold({
+            "".toString()
+        }, {
+            it.toString()
+        })
+    }
+
+    fun getNotes() = launch {
+        getNotesUseCase.invoke(null).fold({
             "".toString()
         }, {
             it.toString()
