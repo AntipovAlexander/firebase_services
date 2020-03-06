@@ -14,15 +14,15 @@ class RegisterPresenter(
     private val router: Router
 ) : BasePresenter<RegisterView>() {
 
-    fun register(email: String, password: String) =
+    fun register(email: String, password: String, first: String, last: String) =
         launch {
             runOnUi { viewState.showProgress() }
             val result = registerUseCase.invoke(
                 RegisterUseCase.Params(
                     email,
                     password,
-                    "Antipov",
-                    "Alexander",
+                    first,
+                    last,
                     "https://randomuser.me/api/portraits/lego/5.jpg"
                 )
             )

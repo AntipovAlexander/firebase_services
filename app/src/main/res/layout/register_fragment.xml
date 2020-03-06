@@ -20,6 +20,20 @@
             android:textSize="24sp" />
 
         <EditText
+            android:id="@+id/registerFragmentFirstNameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="First Name" />
+
+        <EditText
+            android:id="@+id/registerFragmentSecondNameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Second Name" />
+
+        <EditText
             android:id="@+id/registerFragmentLoginField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

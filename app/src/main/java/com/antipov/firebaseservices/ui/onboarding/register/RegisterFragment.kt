@@ -41,7 +41,9 @@ class RegisterFragment : BaseFragment(), RegisterView {
             activity?.hideKeyboard(view)
             presenter.register(
                 registerFragmentLoginField.text.toString(),
-                registerFragmentPasswordField.text.toString()
+                registerFragmentPasswordField.text.toString(),
+                registerFragmentFirstNameField.text.toString(),
+                registerFragmentSecondNameField.text.toString()
             )
         }
     }

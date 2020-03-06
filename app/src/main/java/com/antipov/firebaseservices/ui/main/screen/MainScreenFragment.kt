@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.antipov.firebaseservices.R
-import com.antipov.firebaseservices.data.model.Note
 import com.antipov.firebaseservices.data.model.User
 import com.antipov.firebaseservices.navigation.AppNavigator
 import com.antipov.firebaseservices.ui.base.BaseFragment
@@ -13,7 +12,6 @@ import com.antipov.firebaseservices.ui.host.di.HostNavigator
 import com.antipov.firebaseservices.ui.main.flow.di.MainFlowNavigator
 import com.antipov.firebaseservices.utils.extensions.showSnackbar
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.main_screen_fragment.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
