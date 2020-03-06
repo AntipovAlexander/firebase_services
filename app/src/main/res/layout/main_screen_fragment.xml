@@ -16,6 +16,7 @@
         app:title="Main" />
 
     <ImageButton
+        android:id="@+id/logoutBtn"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_alignTop="@+id/toolbar"

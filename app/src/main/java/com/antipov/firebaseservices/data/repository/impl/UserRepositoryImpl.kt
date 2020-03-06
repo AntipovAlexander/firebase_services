@@ -21,4 +21,6 @@ class UserRepositoryImpl(private val auth: FirebaseAuth) : UserRepository {
 
     override fun validateEmail() =
         auth.currentUser?.sendEmailVerification() ?: throw RuntimeException("Current user is null.")
+
+    override fun logout() = auth.signOut()
 }

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.main_screen_fragment.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import javax.inject.Inject
 
 class MainScreenFragment : BaseFragment(), MainScreenView {
@@ -53,6 +54,7 @@ class MainScreenFragment : BaseFragment(), MainScreenView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.getNotes()
+        logoutBtn.onClick { presenter.logout() }
     }
     override fun onValidationSendSuccess() {
         Toast.makeText(context, "Check your inbox", Toast.LENGTH_SHORT).show()

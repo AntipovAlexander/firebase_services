@@ -8,6 +8,7 @@ import com.antipov.firebaseservices.di.scopes.PerChildFragment
 import com.antipov.firebaseservices.domain.notes.CreateNoteUseCase
 import com.antipov.firebaseservices.domain.notes.GetNotesUseCase
 import com.antipov.firebaseservices.domain.user.GetUserData
+import com.antipov.firebaseservices.domain.user.LogoutUseCase
 import com.antipov.firebaseservices.domain.user.ValidateEmailUseCase
 import com.antipov.firebaseservices.ui.main.screen.MainScreenPresenter
 import com.google.firebase.auth.FirebaseAuth
@@ -29,8 +30,16 @@ abstract class MainScreenModule {
             createNoteUseCase: CreateNoteUseCase,
             validateEmailUseCase: ValidateEmailUseCase,
             getUserData: GetUserData,
+            logoutUseCase: LogoutUseCase,
             router: Router
-        ) = MainScreenPresenter(getNotesUseCase, createNoteUseCase, validateEmailUseCase, getUserData, router)
+        ) = MainScreenPresenter(
+            getNotesUseCase,
+            createNoteUseCase,
+            validateEmailUseCase,
+            getUserData,
+            logoutUseCase,
+            router
+        )
 
         @Provides
         @PerChildFragment
@@ -55,6 +64,10 @@ abstract class MainScreenModule {
         fun provideCreateNoteUseCase(notesRepository: NoteRepository) =
             CreateNoteUseCase(notesRepository)
 
+        @Provides
+        @PerChildFragment
+        @JvmStatic
+        fun provideLogoutuseCase(userRepository: UserRepository) = LogoutUseCase(userRepository)
 
         @Provides
         @PerChildFragment

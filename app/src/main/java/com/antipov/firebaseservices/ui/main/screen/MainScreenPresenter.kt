@@ -4,7 +4,9 @@ import com.antipov.firebaseservices.data.model.Note
 import com.antipov.firebaseservices.domain.notes.CreateNoteUseCase
 import com.antipov.firebaseservices.domain.notes.GetNotesUseCase
 import com.antipov.firebaseservices.domain.user.GetUserData
+import com.antipov.firebaseservices.domain.user.LogoutUseCase
 import com.antipov.firebaseservices.domain.user.ValidateEmailUseCase
+import com.antipov.firebaseservices.navigation.Screens
 import com.antipov.firebaseservices.ui.base.BasePresenter
 import com.antipov.firebaseservices.utils.extensions.runOnUi
 import kotlinx.coroutines.launch
@@ -17,6 +19,7 @@ class MainScreenPresenter(
     private val createNoteUseCase: CreateNoteUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val getUserDataUseCase: GetUserData,
+    private val logoutUseCase: LogoutUseCase,
     private val router: Router
 ) : BasePresenter<MainScreenView>() {
 
@@ -56,4 +59,11 @@ class MainScreenPresenter(
         })
     }
 
+    fun logout() = launch {
+        logoutUseCase.invoke(Unit).fold({
+            runOnUi { router.newRootScreen(Screens.Onboarding) }
+        }, {
+            viewState.showMessage(it.message ?: "error during user logout")
+        })
+    }
 }
