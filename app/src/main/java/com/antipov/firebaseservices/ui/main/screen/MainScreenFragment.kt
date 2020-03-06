@@ -2,6 +2,8 @@ package com.antipov.firebaseservices.ui.main.screen
 
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
+import android.widget.LinearLayout.VERTICAL
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.antipov.firebaseservices.R
@@ -15,7 +17,9 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.main_screen_fragment.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
+import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.support.v4.alert
 import javax.inject.Inject
 
 class MainScreenFragment : BaseFragment(), MainScreenView {
@@ -44,6 +48,8 @@ class MainScreenFragment : BaseFragment(), MainScreenView {
         presenter.requestUserInfo()
     }
 
+//    private val
+
     override fun showUser(user: User) {
         mainScreenUsername.text = user.displayName
         Glide.with(this).load(user.avatar).into(mainScreenAvatar)
@@ -55,6 +61,31 @@ class MainScreenFragment : BaseFragment(), MainScreenView {
         super.onViewCreated(view, savedInstanceState)
         presenter.getNotes()
         logoutBtn.onClick { presenter.logout() }
+        fabAdd.onClick {
+            alert {
+                var titleEt: EditText? = null
+                var noteEt: EditText? = null
+                customView {
+                    linearLayout {
+                        layoutParams.apply {
+                            padding = dip(16)
+                        }
+                        orientation = VERTICAL
+                        textView("Title:")
+                        titleEt = editText()
+                        textView("Note:")
+                        noteEt = editText()
+                    }
+                }
+                okButton {
+                    presenter.createNote(
+                        titleEt?.text?.toString() ?: "",
+                        noteEt?.text?.toString() ?: "",
+                        System.currentTimeMillis()
+                    )
+                }
+            }.show()
+        }
     }
     override fun onValidationSendSuccess() {
         Toast.makeText(context, "Check your inbox", Toast.LENGTH_SHORT).show()

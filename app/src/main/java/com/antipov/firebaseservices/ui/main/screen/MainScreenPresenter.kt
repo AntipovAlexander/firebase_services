@@ -1,6 +1,7 @@
 package com.antipov.firebaseservices.ui.main.screen
 
 import com.antipov.firebaseservices.data.model.Note
+import com.antipov.firebaseservices.data.model.User
 import com.antipov.firebaseservices.domain.notes.CreateNoteUseCase
 import com.antipov.firebaseservices.domain.notes.GetNotesUseCase
 import com.antipov.firebaseservices.domain.user.GetUserData
@@ -23,11 +24,14 @@ class MainScreenPresenter(
     private val router: Router
 ) : BasePresenter<MainScreenView>() {
 
+    private lateinit var user: User
+
     fun onBackPressed() = router.exit()
 
     fun requestUserInfo() = launch {
-        getUserDataUseCase.invoke(Unit).fold({
-            runOnUi { viewState.showUser(it) }
+        getUserDataUseCase.invoke(Unit).fold({ user ->
+            this@MainScreenPresenter.user = user
+            runOnUi { viewState.showUser(user) }
         }, {
             viewState.showMessage(it.message ?: "Error while getting user profile")
         })
@@ -43,12 +47,16 @@ class MainScreenPresenter(
         runOnUi { viewState.hideProgress() }
     }
 
-    fun createNote(note: Note) = launch {
-        createNoteUseCase.invoke(note).fold({
+    fun createNote(title: String, note: String, createdAt: Long) = launch {
+        runOnUi { viewState.showProgress() }
+        if (!::user.isInitialized) return@launch
+        val noteObj = Note(user.uid, title, note, createdAt)
+        createNoteUseCase.invoke(noteObj).fold({
             "".toString()
         }, {
-            it.toString()
+            viewState.showMessage(it.message ?: "error during creating note")
         })
+        runOnUi { viewState.hideProgress() }
     }
 
     fun getNotes() = launch {
