@@ -6,19 +6,14 @@ import com.antipov.firebaseservices.data.repository.impl.NoteRepositoryImpl
 import com.antipov.firebaseservices.data.repository.impl.UserRepositoryImpl
 import com.antipov.firebaseservices.di.scopes.PerChildFragment
 import com.antipov.firebaseservices.domain.notes.CreateNoteUseCase
-import com.antipov.firebaseservices.domain.notes.GetNotesUseCase
 import com.antipov.firebaseservices.domain.user.GetUserData
 import com.antipov.firebaseservices.domain.user.LogoutUseCase
 import com.antipov.firebaseservices.domain.user.ValidateEmailUseCase
-import com.antipov.firebaseservices.ui.main.notes.NotesFragment
-import com.antipov.firebaseservices.ui.main.notes.di.NotesModule
-import com.antipov.firebaseservices.ui.main.notes.di.NotesScope
 import com.antipov.firebaseservices.ui.main.screen.MainScreenPresenter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
-import dagger.android.ContributesAndroidInjector
 import ru.terrakok.cicerone.Router
 
 @Module
@@ -30,14 +25,12 @@ abstract class MainScreenModule {
         @PerChildFragment
         @JvmStatic
         fun providePresenter(
-            getNotesUseCase: GetNotesUseCase,
             createNoteUseCase: CreateNoteUseCase,
             validateEmailUseCase: ValidateEmailUseCase,
             getUserData: GetUserData,
             logoutUseCase: LogoutUseCase,
             router: Router
         ) = MainScreenPresenter(
-            getNotesUseCase,
             createNoteUseCase,
             validateEmailUseCase,
             getUserData,
@@ -59,12 +52,6 @@ abstract class MainScreenModule {
         @Provides
         @PerChildFragment
         @JvmStatic
-        fun provideGetNotesUseCase(notesRepository: NoteRepository, auth: FirebaseAuth) =
-            GetNotesUseCase(notesRepository, auth)
-
-        @Provides
-        @PerChildFragment
-        @JvmStatic
         fun provideCreateNoteUseCase(notesRepository: NoteRepository) =
             CreateNoteUseCase(notesRepository)
 
@@ -72,12 +59,6 @@ abstract class MainScreenModule {
         @PerChildFragment
         @JvmStatic
         fun provideLogoutuseCase(userRepository: UserRepository) = LogoutUseCase(userRepository)
-
-        @Provides
-        @PerChildFragment
-        @JvmStatic
-        fun provideNotesRepo(storage: FirebaseFirestore): NoteRepository =
-            NoteRepositoryImpl(storage)
 
         @Provides
         @PerChildFragment

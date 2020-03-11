@@ -16,7 +16,6 @@ import ru.terrakok.cicerone.Router
 
 @InjectViewState
 class MainScreenPresenter(
-    private val getNotesUseCase: GetNotesUseCase,
     private val createNoteUseCase: CreateNoteUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val getUserDataUseCase: GetUserData,
@@ -57,14 +56,6 @@ class MainScreenPresenter(
             viewState.showMessage(it.message ?: "error during creating note")
         })
         runOnUi { viewState.hideProgress() }
-    }
-
-    fun getNotes() = launch {
-        getNotesUseCase.invoke(null).fold({
-            "".toString()
-        }, {
-            it.toString()
-        })
     }
 
     fun logout() = launch {

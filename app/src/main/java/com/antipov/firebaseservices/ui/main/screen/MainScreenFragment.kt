@@ -58,7 +58,6 @@ class MainScreenFragment : BaseFragment(), MainScreenView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.getNotes()
         mainScreenViewPager.adapter = MainScreenAdapter(fragmentManager!!)
         logoutBtn.onClick { presenter.logout() }
         fabAdd.onClick { presenter.addClicked() }
