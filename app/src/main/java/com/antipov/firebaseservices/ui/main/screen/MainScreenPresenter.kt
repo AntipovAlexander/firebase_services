@@ -74,4 +74,6 @@ class MainScreenPresenter(
             viewState.showMessage(it.message ?: "error during user logout")
         })
     }
+
+    fun addClicked() = viewState.showCreateNoteDialog()
 }

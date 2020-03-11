@@ -9,4 +9,5 @@ import moxy.viewstate.strategy.StateStrategyType
 interface MainScreenView : BaseView {
     fun showUser(user: User)
     fun onValidationSendSuccess()
+    fun showCreateNoteDialog()
 }

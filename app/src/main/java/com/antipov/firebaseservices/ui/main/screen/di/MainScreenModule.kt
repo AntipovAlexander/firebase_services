@@ -10,11 +10,15 @@ import com.antipov.firebaseservices.domain.notes.GetNotesUseCase
 import com.antipov.firebaseservices.domain.user.GetUserData
 import com.antipov.firebaseservices.domain.user.LogoutUseCase
 import com.antipov.firebaseservices.domain.user.ValidateEmailUseCase
+import com.antipov.firebaseservices.ui.main.notes.NotesFragment
+import com.antipov.firebaseservices.ui.main.notes.di.NotesModule
+import com.antipov.firebaseservices.ui.main.notes.di.NotesScope
 import com.antipov.firebaseservices.ui.main.screen.MainScreenPresenter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
+import dagger.android.ContributesAndroidInjector
 import ru.terrakok.cicerone.Router
 
 @Module

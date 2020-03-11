@@ -12,6 +12,7 @@ import com.antipov.firebaseservices.navigation.AppNavigator
 import com.antipov.firebaseservices.ui.base.BaseFragment
 import com.antipov.firebaseservices.ui.host.di.HostNavigator
 import com.antipov.firebaseservices.ui.main.flow.di.MainFlowNavigator
+import com.antipov.firebaseservices.ui.main.screen.adapter.MainScreenAdapter
 import com.antipov.firebaseservices.utils.extensions.showSnackbar
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.main_screen_fragment.*
@@ -48,8 +49,6 @@ class MainScreenFragment : BaseFragment(), MainScreenView {
         presenter.requestUserInfo()
     }
 
-//    private val
-
     override fun showUser(user: User) {
         mainScreenUsername.text = user.displayName
         Glide.with(this).load(user.avatar).into(mainScreenAvatar)
@@ -60,33 +59,37 @@ class MainScreenFragment : BaseFragment(), MainScreenView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.getNotes()
+        mainScreenViewPager.adapter = MainScreenAdapter(fragmentManager!!)
         logoutBtn.onClick { presenter.logout() }
-        fabAdd.onClick {
-            alert {
-                var titleEt: EditText? = null
-                var noteEt: EditText? = null
-                customView {
-                    linearLayout {
-                        layoutParams.apply {
-                            padding = dip(16)
-                        }
-                        orientation = VERTICAL
-                        textView("Title:")
-                        titleEt = editText()
-                        textView("Note:")
-                        noteEt = editText()
-                    }
-                }
-                okButton {
-                    presenter.createNote(
-                        titleEt?.text?.toString() ?: "",
-                        noteEt?.text?.toString() ?: "",
-                        System.currentTimeMillis()
-                    )
-                }
-            }.show()
-        }
+        fabAdd.onClick { presenter.addClicked() }
     }
+
+    override fun showCreateNoteDialog() {
+        alert {
+            var titleEt: EditText? = null
+            var noteEt: EditText? = null
+            customView {
+                linearLayout {
+                    layoutParams.apply {
+                        padding = dip(16)
+                    }
+                    orientation = VERTICAL
+                    textView("Title:")
+                    titleEt = editText()
+                    textView("Note:")
+                    noteEt = editText()
+                }
+            }
+            okButton {
+                presenter.createNote(
+                    titleEt?.text?.toString() ?: "",
+                    noteEt?.text?.toString() ?: "",
+                    System.currentTimeMillis()
+                )
+            }
+        }.show()
+    }
+
     override fun onValidationSendSuccess() {
         Toast.makeText(context, "Check your inbox", Toast.LENGTH_SHORT).show()
     }
